@@ -817,6 +817,9 @@ fn should_send_auto_submit(auto_submit: bool, paste_method: PasteMethod) -> bool
     auto_submit && paste_method != PasteMethod::None
 }
 
+/// Lowercases dictated text and drops trailing sentence punctuation the
+/// model adds (e.g. "Hello, World!" -> "hello, world"), keeping any
+/// trailing whitespace such as newlines.
 /// Pastes `text` into the focused app. Call from a worker thread, never the main
 /// thread: it sleeps between steps (input injection hops via `with_enigo`).
 pub fn paste(text: String, app_handle: AppHandle) -> Result<(), String> {
